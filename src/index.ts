@@ -1,6 +1,4 @@
-import _ from 'lodash-es';
-
-const { pick, omit } = _;
+import { pick, omit } from 'lodash-es';
 
 export interface InterfaceData {
   [index: string]: any;

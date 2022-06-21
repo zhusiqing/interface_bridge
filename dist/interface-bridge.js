@@ -18275,8 +18275,6 @@
     lodash.prototype[symIterator] = seq.toIterator;
   }
 
-  // import pick from 'lodash-es/pick';
-  // import omit from 'lodash-es/omit';
   var pick = lodash.pick, omit = lodash.omit;
   var mapBridge = function (bridge) { return function (data) {
       var result = {};
@@ -18302,19 +18300,19 @@
       }
       Bridge.prototype.pickData = function (data, keys) {
           var mapData = this.map(data);
-          return pick(mapData, keys);
+          return (keys === null || keys === void 0 ? void 0 : keys.length) ? pick(mapData, keys) : mapData;
       };
       Bridge.prototype.pickReverseData = function (data, keys) {
           var reverseMapData = this.reverseMap(data);
-          return pick(reverseMapData, keys);
+          return (keys === null || keys === void 0 ? void 0 : keys.length) ? pick(reverseMapData, keys) : reverseMapData;
       };
       Bridge.prototype.omitData = function (data, keys) {
-          var newData = this.map(data);
-          return omit(newData, keys);
+          var mapData = this.map(data);
+          return (keys === null || keys === void 0 ? void 0 : keys.length) ? omit(mapData, keys) : mapData;
       };
       Bridge.prototype.omitReverseData = function (data, keys) {
-          var newData = this.reverseMap(data);
-          return omit(newData, keys);
+          var reverseMapData = this.reverseMap(data);
+          return (keys === null || keys === void 0 ? void 0 : keys.length) ? omit(reverseMapData, keys) : reverseMapData;
       };
       return Bridge;
   }());

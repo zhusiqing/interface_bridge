@@ -28,23 +28,23 @@ export class Bridge {
     this.map = mapBridge(bridge);
     this.reverseMap = mapBridge(reverseKeyValue(bridge));
   }
-  pickData(data: InterfaceData, keys?: string[]): InterfaceData {
+  pickData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T {
     const mapData = this.map(data);
-    return keys?.length ? pick(mapData, keys) : mapData;
+    return (keys?.length ? pick(mapData, keys) : mapData) as T;
   }
-  pickReverseData(data: InterfaceData, keys?: string[]): InterfaceData {
+  pickReverseData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T {
     const reverseMapData = this.reverseMap(data);
-    return keys?.length ? pick(reverseMapData, keys) : reverseMapData;
+    return (keys?.length ? pick(reverseMapData, keys) : reverseMapData) as T;
   }
 
-  omitData(data: InterfaceData, keys?: string[]): InterfaceData {
+  omitData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T {
     const mapData = this.map(data);
-    return keys?.length ? omit(mapData, keys): mapData;
+    return (keys?.length ? omit(mapData, keys) : mapData) as T;
   }
 
-  omitReverseData(data: InterfaceData, keys?: string[]): InterfaceData {
+  omitReverseData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T {
     const reverseMapData = this.reverseMap(data);
-    return keys?.length ? omit(reverseMapData, keys): reverseMapData;
+    return (keys?.length ? omit(reverseMapData, keys) : reverseMapData) as T;
   }
 }
 export default Bridge;

@@ -23,8 +23,11 @@ const map = {
 }
 
 const bridge = new InterfaceBridge(map)
-
-bridge.omitData({
+interface HandleDataType {
+  backendField: string;
+  right: number;
+}
+bridge.pickData<HandleDataType>({
   frontendField: '123',
   left: 321
 })
@@ -38,7 +41,7 @@ bridge.omitData({
 
 ## 方法
 
-#### omitData(data, keys)
+#### omitData\<T\>(data, keys): T
 
 将前端的数据转换成后端要的数据
 
@@ -84,7 +87,7 @@ bridge.omitData({
 */
 ```
 
-#### omitReverseData(data, keys)
+#### omitReverseData\<T\>(data, keys): T
 
 将后端的数据转换成前端要的数据
 
@@ -130,7 +133,7 @@ bridge.omitReverseData({
 */
 ```
 
-#### pickData(data, keys)
+#### pickData\<T\>(data, keys): T
 
 将前端的数据转换成后端要的数据
 
@@ -175,7 +178,7 @@ bridge.pickData({
 */
 ```
 
-#### pickReverseData(data, keys)
+#### pickReverseData\<T\>(data, keys): T
 
 将后端的数据转换成前端要的数据
 

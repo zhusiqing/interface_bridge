@@ -9,10 +9,10 @@ declare class Bridge {
     map: (data: InterfaceData) => InterfaceData;
     reverseMap: (data: InterfaceData) => InterfaceData;
     constructor(bridge: InterfaceBridge);
-    pickData(data: InterfaceData, keys?: string[]): InterfaceData;
-    pickReverseData(data: InterfaceData, keys?: string[]): InterfaceData;
-    omitData(data: InterfaceData, keys?: string[]): InterfaceData;
-    omitReverseData(data: InterfaceData, keys?: string[]): InterfaceData;
+    pickData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T;
+    pickReverseData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T;
+    omitData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T;
+    omitReverseData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T;
 }
 
 export { Bridge, InterfaceBridge, InterfaceData, Bridge as default };

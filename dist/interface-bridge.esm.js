@@ -3222,19 +3222,19 @@ var Bridge = /** @class */ (function () {
     }
     Bridge.prototype.pickData = function (data, keys) {
         var mapData = this.map(data);
-        return (keys === null || keys === void 0 ? void 0 : keys.length) ? pick$1(mapData, keys) : mapData;
+        return ((keys === null || keys === void 0 ? void 0 : keys.length) ? pick$1(mapData, keys) : mapData);
     };
     Bridge.prototype.pickReverseData = function (data, keys) {
         var reverseMapData = this.reverseMap(data);
-        return (keys === null || keys === void 0 ? void 0 : keys.length) ? pick$1(reverseMapData, keys) : reverseMapData;
+        return ((keys === null || keys === void 0 ? void 0 : keys.length) ? pick$1(reverseMapData, keys) : reverseMapData);
     };
     Bridge.prototype.omitData = function (data, keys) {
         var mapData = this.map(data);
-        return (keys === null || keys === void 0 ? void 0 : keys.length) ? omit$1(mapData, keys) : mapData;
+        return ((keys === null || keys === void 0 ? void 0 : keys.length) ? omit$1(mapData, keys) : mapData);
     };
     Bridge.prototype.omitReverseData = function (data, keys) {
         var reverseMapData = this.reverseMap(data);
-        return (keys === null || keys === void 0 ? void 0 : keys.length) ? omit$1(reverseMapData, keys) : reverseMapData;
+        return ((keys === null || keys === void 0 ? void 0 : keys.length) ? omit$1(reverseMapData, keys) : reverseMapData);
     };
     return Bridge;
 }());

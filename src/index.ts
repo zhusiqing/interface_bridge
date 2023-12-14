@@ -46,7 +46,7 @@ export class Bridge {
   options: InterfaceOptions = {
     isExact: false
   };
-  constructor(bridge: InterfaceBridge, options: InterfaceOptions) {
+  constructor(bridge: InterfaceBridge, options?: InterfaceOptions) {
     this.bridge = bridge;
     this.options = Object.assign(this.options, options);
     this.map = mapBridge(bridge, this.options);

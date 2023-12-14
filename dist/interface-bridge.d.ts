@@ -12,7 +12,7 @@ declare class Bridge {
     map: (data: InterfaceData) => InterfaceData;
     reverseMap: (data: InterfaceData) => InterfaceData;
     options: InterfaceOptions;
-    constructor(bridge: InterfaceBridge, options: InterfaceOptions);
+    constructor(bridge: InterfaceBridge, options?: InterfaceOptions);
     pickData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T;
     pickReverseData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T;
     omitData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T;

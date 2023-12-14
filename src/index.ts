@@ -6,13 +6,33 @@ export interface InterfaceData {
 export interface InterfaceBridge {
   [index: string]: string;
 }
-const mapBridge = (bridge: InterfaceBridge) => (data: InterfaceData) => {
+export interface InterfaceOptions {
+  // 是否精确匹配
+  isExact?: boolean
+}
+
+const mapBridge = (bridge: InterfaceBridge, options: InterfaceOptions) => (data: InterfaceData) => {
   const result: InterfaceBridge = {};
   const keys = Object.keys(bridge);
+  // 储存数据key
+  const dataKeys = Object.keys(data)
   keys.forEach((key) => {
     const mapKey = bridge[key] ?? key;
     result[mapKey] = data[key];
+    // 删除已转化的key
+    const useIndex = dataKeys.findIndex(el => el === key)
+    if (~useIndex) {
+      dataKeys.splice(useIndex, 1)
+    }
   });
+  // 是否是精确匹配
+  if (!options.isExact) {
+    // 将未转化的key和值放入
+    dataKeys.forEach((key) => {
+      result[key] = data[key];
+    })
+  }
+
   return result;
 };
 
@@ -23,10 +43,14 @@ export class Bridge {
   bridge: InterfaceBridge;
   map: (data: InterfaceData) => InterfaceData;
   reverseMap: (data: InterfaceData) => InterfaceData;
-  constructor(bridge: InterfaceBridge) {
+  options: InterfaceOptions = {
+    isExact: false
+  };
+  constructor(bridge: InterfaceBridge, options: InterfaceOptions) {
     this.bridge = bridge;
-    this.map = mapBridge(bridge);
-    this.reverseMap = mapBridge(reverseKeyValue(bridge));
+    this.options = Object.assign(this.options, options);
+    this.map = mapBridge(bridge, this.options);
+    this.reverseMap = mapBridge(reverseKeyValue(bridge), this.options);
   }
   pickData<T = InterfaceData>(data: InterfaceData, keys?: string[]): T {
     const mapData = this.map(data);
@@ -48,3 +72,4 @@ export class Bridge {
   }
 }
 export default Bridge;
+

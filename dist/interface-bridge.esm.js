@@ -3198,14 +3198,28 @@ var pick = flatRest(function(object, paths) {
 
 var pick$1 = pick;
 
-var mapBridge = function (bridge) { return function (data) {
+var mapBridge = function (bridge, options) { return function (data) {
     var result = {};
     var keys = Object.keys(bridge);
+    // 储存数据key
+    var dataKeys = Object.keys(data);
     keys.forEach(function (key) {
         var _a;
         var mapKey = (_a = bridge[key]) !== null && _a !== void 0 ? _a : key;
         result[mapKey] = data[key];
+        // 删除已转化的key
+        var useIndex = dataKeys.findIndex(function (el) { return el === key; });
+        if (~useIndex) {
+            dataKeys.splice(useIndex, 1);
+        }
     });
+    // 是否是精确匹配
+    if (!options.isExact) {
+        // 将未转化的key和值放入
+        dataKeys.forEach(function (key) {
+            result[key] = data[key];
+        });
+    }
     return result;
 }; };
 var reverseKeyValue = function (bridge) {
@@ -3215,10 +3229,14 @@ var reverseKeyValue = function (bridge) {
     }));
 };
 var Bridge = /** @class */ (function () {
-    function Bridge(bridge) {
+    function Bridge(bridge, options) {
+        this.options = {
+            isExact: false
+        };
         this.bridge = bridge;
-        this.map = mapBridge(bridge);
-        this.reverseMap = mapBridge(reverseKeyValue(bridge));
+        this.options = Object.assign(this.options, options);
+        this.map = mapBridge(bridge, this.options);
+        this.reverseMap = mapBridge(reverseKeyValue(bridge), this.options);
     }
     Bridge.prototype.pickData = function (data, keys) {
         var mapData = this.map(data);

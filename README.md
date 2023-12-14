@@ -22,7 +22,10 @@ const map = {
   left: 'right'
 }
 
-const bridge = new InterfaceBridge(map)
+const bridge = new InterfaceBridge(map, {
+  // 默认为false, 设置未true后将过滤掉非映射关系中的字段
+  isExact: false
+})
 interface HandleDataType {
   backendField: string;
   right: number;
@@ -35,6 +38,56 @@ bridge.pickData<HandleDataType>({
 {
   backendField: "123"
   right: 321
+}
+*/
+```
+
+## 配置参数
+
+#### options.isExact: boolean
+
+默认为false, 设置为true后将过滤掉非映射关系中的字段
+
+```javascript
+import InterfaceBridge from 'interface-bridge';
+const map = {
+  frontendField: 'backendField',
+  left: 'right'
+}
+
+const bridge = new InterfaceBridge(map, {
+  // 默认为false, 设置未true后将过滤掉非映射关系中的字段
+  isExact: true
+})
+interface HandleDataType {
+  backendField: string;
+  right: number;
+  test?: number
+}
+bridge.pickData<HandleDataType>({
+  frontendField: '123',
+  left: 321,
+  test: 123
+})
+/*
+{
+  backendField: "123",
+  right: 321
+}
+*/
+const bridge = new InterfaceBridge(map, {
+  isExact: false
+})
+bridge.pickData<HandleDataType>({
+  frontendField: '123',
+  left: 321,
+  test: 123
+})
+/*
+{
+  backendField: "123",
+  right: 321,
+  test: 123
 }
 */
 ```

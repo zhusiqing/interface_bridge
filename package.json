@@ -1,6 +1,6 @@
 {
   "name": "interface-bridge",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "接口适配器",
   "main": "dist/interface-bridge.js",
   "module": "dist/interface-bridge.esm.js",
